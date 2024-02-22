@@ -3,19 +3,9 @@
 #include <cstdlib>
 #include <ctime>
 
-std::string generateKey(int key_length) {
-    const std::string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=";
 
-    std::string key;
-    for (int i = 0; i < key_length; ++i) {
-        key += characters[rand() % characters.length()];
-    }
-
-    return key;
-}
-
-std::string encrypt(const std::string& plaintext, const std::string& key) {
-    srand(time(0));
+std::string encrypt(const std::string& plaintext, int key) {
+    srand(key);
     std::string encryptedText;
 
     for (size_t i = 0; i < plaintext.length(); ++i) {
@@ -25,8 +15,8 @@ std::string encrypt(const std::string& plaintext, const std::string& key) {
     return encryptedText;
 }
 
-std::string decrypt(const std::string& encryptedText, const std::string& key) {
-    srand(time(0));
+std::string decrypt(const std::string& encryptedText, int key) {
+    srand(key);
     std::string decryptedText;
 
     for (size_t i = 0; i < encryptedText.length(); ++i) {
@@ -38,7 +28,7 @@ std::string decrypt(const std::string& encryptedText, const std::string& key) {
 
 int main() {
     std::string plaintext = "Hello, World!";
-    std::string key = generateKey(plaintext.length());
+    int key = 69;
 
     std::string encryptedText = encrypt(plaintext, key);
     std::cout << "Encrypted: " << encryptedText << std::endl;
